@@ -4,7 +4,6 @@
 	var cheerio = require('cheerio'); // cheerio mimics the DOM and jQuery/CSS style selectors
 
 
-	
 
 
 	for (counter=1;counter<3;counter++) {
@@ -29,19 +28,25 @@
 					//console.log ('ID:' + $('a[class="schedule_download"]').attr('href'));
 
 					console.log ('Address:' + $('.detailsKeyPropertyDetails h1').text());
-					//console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
-					//console.log ('Description:' + $('.detailsDescription').text());
-					//console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
-					//console.log ('Image:' +$('.ad-thumbs ul').html());
-					//console.log ('Image2:' + $('.ad-thumbs ul').attr('img src','href'));
-					//console.log ('Image3:' + $('.ad-thumbs ul').html($("<img src>").attr("href")));
+					console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
+					console.log ('Description:' + $('.detailsDescription').text());
+					console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
+					console.log('Images:');
 
-					//links = $('.ad-thumbs a');
-					//$(links).each(function (i,link) {
-					//	console.log($(link).text() + '\n ' + $(link).attr('href'));
-					//});
+					links = $('.ad-thumbs a');
+					$(links).each(function (i,link) {
+						console.log($(link).text() + '\n ' + $(link).attr('href'));
+					});
 
 				});
 			});
 		}); 
 	}
+
+					json = {
+						'Address': $('.detailsKeyPropertyDetails h1').text(),
+						'Rooms': $('.detailsKeyPropertyDetails h2').text(),
+						'Description': $('.detailsDescription').text(),
+						'Schedule': $('#but1 a:contains()').attr('href'),
+						'Images':
+					}
