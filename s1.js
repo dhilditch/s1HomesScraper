@@ -31,7 +31,6 @@
 					console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
 					console.log ('Description:' + $('.detailsDescription').text());
 					console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
-					console.log('Estate Agent' + $('.request_details_telephone_wrapper strong:contains()').text());
 					console.log('Images:');
 
 					links = $('.ad-thumbs a');
@@ -44,11 +43,10 @@
 		}); 
 	}
 
-					/*json = {
+					json = {
 						'Address': $('.detailsKeyPropertyDetails h1').text(),
 						'Rooms': $('.detailsKeyPropertyDetails h2').text(),
 						'Description': $('.detailsDescription').text(),
 						'Schedule': $('#but1 a:contains()').attr('href'),
 						'Images':
 					}
-					*/
