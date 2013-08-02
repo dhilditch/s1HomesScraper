@@ -10,8 +10,6 @@
 		console.log ('Address:' + $('.detailsKeyPropertyDetails h1').text());
 		console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
 		console.log ('Description:' + $('.detailsDescription').text());
-		console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
-		console.log('Estate Agent' + $('.request_details_telephone_wrapper strong:contains()').text());
 		console.log('Images:');
 		links = $('.ad-thumbs a');
 		$(links).each(function (i,link) {

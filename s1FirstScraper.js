@@ -6,25 +6,35 @@
 
 
 
-	for (counter=1;counter<3;counter++) {
-		var url = 'http://www.s1homes.com/property-for-sale/forsale_search_results.cgi?type=House&newhomes=yes&sort=da&page=' +counter;
 
-		request(url, {proxy: 'http://localhost:8888'}, function(err, resp, body) {
+	
 
-			if (err)
+			request(url, /*{proxy: 'http://localhost:8888'},*/ function(err, resp, body) {
 
-				throw err;
+				if (err)
 
-			$ = cheerio.load(body);
+					throw err;
 
-			$('.imgPlaceholder a:contains()').each(function() {
+				$ = cheerio.load(body);
 
-				console.log ('http://www.s1homes.com/' + $(this).attr('href'));
+				$('.imgPlaceholder a:contains()').each(function() {
 
-				//output ('http://www.s1homes.com/' + $(this).attr('href'), to queue
+					//console.log ('http://www.s1homes.com/' + $(this).attr('href'));
 
-				
+					url2 ='http://www.s1homes.com/' + $(this).attr('href');
+
+					
+				});
+			}); 
+
+			connection.queue('hello', {'durable': false}, function (q){
+				connection.publish('hello', url2);
+	    		console.log(" [x] Sent 'url!'");
 			});
-		}); 
-	}
+		};	
+
+
+
+    	amqp_hacks.safeEndConnection(connection);
+	});
 
