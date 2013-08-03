@@ -3,6 +3,7 @@
 
 	var cheerio = require('cheerio'); // cheerio mimics the DOM and jQuery/CSS style selectors
 
+	var amqp = require('amqp');	//used for messaging
 
 
 
@@ -21,10 +22,33 @@
 
 				console.log ('http://www.s1homes.com/' + $(this).attr('href'));
 
-				//output ('http://www.s1homes.com/' + $(this).attr('href'), to queue
+				var url2 = 'http://www.s1homes.com/' + $(this).attr('href');
+				console.log (url2)
 
 				
 			});
 		}); 
 	}
 
+
+/*
+function pub() {
+  var exchange = conn.exchange(''); // get the default exchange
+  var queue = conn.queue('urls', {}, function() { // create a queue
+    
+    // publish a message
+    exchange.publish(queue.name, {body: 'Hello CloudAMQP!'});
+    console.log("published");
+  });
+}
+
+var url = process.env.CLOUDAMQP_URL || "amqp://gnmehswn:IlbEqsWPcK3tYO6S_lIJexWu4TxWMtce@bunny.cloudamqp.com/gnmehswn"; // default to localhost
+var implOpts = {
+  reconnect: true,
+  reconnectBackoffStrategy: 'linear', // or 'exponential'
+  reconnectBackoffTime: 500, // ms
+};
+var conn = amqp.createConnection({ url: url }, implOpts); // create the connection
+conn.on('ready', pub); // when connected, call "pub_and_sub"
+
+*/
