@@ -5,14 +5,30 @@
 
 	var amqp = require('amqp');	//used for messaging
 
+	var initalUrl = 'http://www.s1homes.com/property-for-sale/forsale_search_results.cgi?type=House&newhomes=yes&sort=da&page=1'
+	var m;	
+	//get number of properties for sale
+	request(initalUrl, function(err, resp, body) {
+
+		if (err)
+
+		throw err;
+
+		$ = cheerio.load(body);
+		var n = ($('.textPositive').text());				
+		parseInt(n);	
+
+		m = Math.ceil(n/10)	//get number of pages
+		console.log(m);
+	});
 
 	function pub() {
 		var exchange = conn.exchange(''); // get the default exchange
-  		var queue = conn.queue('trial', {}, function() { // create a queue		
+  		var queue = conn.queue('estate', {}, function() { // create a queue		
 
 			for (counter=1;counter<3;counter++) {
 				var url = 'http://www.s1homes.com/property-for-sale/forsale_search_results.cgi?type=House&newhomes=yes&sort=da&page=' +counter;
-
+				//console.log(m);
 				request(url, function(err, resp, body) {
 
 					if (err)

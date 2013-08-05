@@ -7,7 +7,7 @@
 
 	function sub() {
   		var exchange = conn.exchange(''); // get the default exchange
-  		var queue = conn.queue('trial', {}, function() { // create a queue	
+  		var queue = conn.queue('estate', {}, function() { // create a queue	
   			queue.subscribe(function(msg) { // subscribe to that queue
 	      		//console.log(msg.body); // print new messages to the console
 	      		url3 = (msg.body)
@@ -21,6 +21,7 @@
 					console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
 					console.log ('Description:' + $('.detailsDescription').text());
 					console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
+					console.log('Estate Agent: ' + $('.request_details_agent_name strong:contains()').text());
 					console.log('Images:');
 					links = $('.ad-thumbs a');
 					$(links).each(function (i,link) {
