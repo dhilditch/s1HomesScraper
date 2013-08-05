@@ -39,9 +39,9 @@
 					request (url3, function(err,resp,body) {
 						console.log(url3)
 						$ = cheerio.load(body);
-						var h = ('Address:' + $('.detailsKeyPropertyDetails h1').text())
+						/*var h = ('Address:' + $('.detailsKeyPropertyDetails h1').text())
 						h = h.replace(/\s+/g,' ');
-						console.log(h);
+						console.log(h);*/
 						/*console.log ('Rooms:' + $('.detailsKeyPropertyDetails h2').text());
 						console.log ('Description:' + $('.detailsDescription').text());
 						console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
