@@ -14,7 +14,8 @@
 		  	address: String,
 			desc: String,
 			Schedule: String,
-			EstateAgent: String
+			EstateAgent: String,
+			Images: Array()
 		});
 		var Property = mongoose.model('Property', propertySchema);
 
@@ -53,7 +54,13 @@
 						});
 						*/
 
-						
+						var images = new Array(); 
+						$(links).each(function (i,link) {
+								images = ($(link).text() + '\n ' + $(link).attr('href'));
+								console.log(images);
+						})
+
+
 						// Compile a 'Property' model using the propertySchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
 						
@@ -62,6 +69,7 @@
 							desc: ($('.detailsDescription').text()).replace(/\s+/g,' ').replace(/'\'/,''),
 							Schedule: ($('#but1 a:contains()').attr('href')),  
 							EstateAgent:  ($('.request_details_agent_name strong:contains()').text())
+							//images:
 						});
 						//saves the record 
 						house.save(function(err, house) {
