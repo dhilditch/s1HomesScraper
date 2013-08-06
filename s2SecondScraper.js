@@ -53,13 +53,13 @@
 							console.log($(link).text() + '\n ' + $(link).attr('href'));
 						});
 						*/
-
+						/*
 						var images = new Array(); 
 						$(links).each(function (i,link) {
 								images = ($(link).text() + '\n ' + $(link).attr('href'));
 								console.log(images);
 						})
-
+						*/
 
 						// Compile a 'Property' model using the propertySchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
