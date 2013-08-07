@@ -59,18 +59,29 @@
 						var schedule = $('#but1 a:contains()').attr('href');
 						var estate = $('.request_details_agent_name strong:contains()').text();
 						
-							geonoder.toCoordinates(address, geonoder.providers.google, function(lat, long) {
+							geonoder.toCoordinates(address, geonoder.providers.google, function geo(lat, long) {
 				   				//console.log('Lat: ' + lat + ' Long: ' + long) // 
 				   				var lattitude = lat;
 				   				var longtitude = long;
-				   				console.log ('Address: ' + address);
+				   				save(lattitude, longtitude);
+				   				/*console.log ('Address: ' + address);
 				   				console.log('Lat: ' + lattitude);
 				   				console.log('Long: ' + longtitude);
 				   				console.log ('Rooms: ' + rooms);
 				   				console.log ('Description: ' + description);
 				   				console.log('Estate Agent: ' + estate)
 				   				console.log ('Schedule: ' + schedule);
+				   				*/
 			   				});
+			   			function save(lattitude, longtitude) {
+			   				console.log ('Address: ' + address);	
+							console.log('Lat: ' + lattitude);
+							console.log('Long: ' + longtitude);
+							console.log ('Rooms: ' + rooms);
+				   			console.log ('Description: ' + description);
+				   			console.log('Estate Agent: ' + estate)
+				   			console.log ('Schedule: ' + schedule);
+						};
 
 						/*
 						var imageLinks=new Array(); 
@@ -90,7 +101,7 @@
 
 						// Compile a 'Property' model using the propertySchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
-						/*
+						
 						var house = new Property({
 							address: ($('.detailsKeyPropertyDetails h1').text()).replace(/\s+/g,' '),// trim(($('.detailsKeyPropertyDetails h1').text())),
 							rooms: ($('.detailsKeyPropertyDetails h2').text());
@@ -103,7 +114,7 @@
 						house.save(function(err, house) {
 							if (err) return console.error(err);
 							console.log(house); //prints the whole of the variable 
-						});*/
+						});
 					});
 	  			});
 	  		});
