@@ -56,7 +56,7 @@
 						*/	
 
 						var address = $('.detailsKeyPropertyDetails h1').text().replace(/\s+/g,' ');
-						var rooms = $('.detailsKeyPropertyDetails h2').text();
+						var rooms = $('.detailsKeyPropertyDetails h2').text().replace(/\s+/g,' ');
 						var description = $('.detailsDescription').text().replace(/\s+/g,' ').replace(/'\'/,'');
 						var schedule = $('#but1 a:contains()').attr('href');
 						var estate = $('.request_details_agent_name strong:contains()').text();
