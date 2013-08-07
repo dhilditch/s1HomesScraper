@@ -14,8 +14,8 @@
 	db.once('open', function() {
 		var propertySchema = new mongoose.Schema({
 		  	address: String,
-		  	latitude: String,
-		  	longitude: String,
+		  	latitude: Number,
+		  	longitude: Number,
 		  	rooms: String,
 			desc: String,
 			Schedule: String,
