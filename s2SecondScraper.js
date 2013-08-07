@@ -31,7 +31,7 @@
 
 		function sub() {
 	  		var exchange = conn.exchange(''); // get the default exchange
-	  		var queue = conn.queue('estate', {}, function() { // create a queue	
+	  		var queue = conn.queue('mongo', {}, function() { // create a queue	
 	  			queue.subscribe(function(msg) { // subscribe to that queue
 		      		//console.log(msg.body); // print new messages to the console
 		      		url3 = (msg.body)

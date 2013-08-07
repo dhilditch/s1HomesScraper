@@ -36,7 +36,7 @@
 
 		function pub() {
 			var exchange = conn.exchange(''); // get the default exchange
-	  		var queue = conn.queue('estate', {}, function() { // create a queue		
+	  		var queue = conn.queue('mongo', {}, function() { // create a queue		
 
 				for (counter=1;counter<m;counter++) {
 					var url = 'http://www.s1homes.com/property-for-sale/forsale_search_results.cgi?type=House&newhomes=yes&sort=da&page=' +counter;
