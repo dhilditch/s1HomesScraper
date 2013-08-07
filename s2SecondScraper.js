@@ -14,6 +14,8 @@
 	db.once('open', function() {
 		var propertySchema = new mongoose.Schema({
 		  	address: String,
+		  	latitude: String,
+		  	longitude: String,
 		  	rooms: String,
 			desc: String,
 			Schedule: String,
@@ -74,13 +76,30 @@
 				   				*/
 			   				});
 			   			function save(lattitude, longtitude) {
-			   				console.log ('Address: ' + address);	
+			   				/*console.log ('Address: ' + address);	
 							console.log('Lat: ' + lattitude);
 							console.log('Long: ' + longtitude);
 							console.log ('Rooms: ' + rooms);
 				   			console.log ('Description: ' + description);
 				   			console.log('Estate Agent: ' + estate)
 				   			console.log ('Schedule: ' + schedule);
+				   			*/
+
+				   			var house = new Property({
+							address: (address),
+							latitude:(lattitude),
+							longitude:(longtitude),
+							rooms: (rooms),
+							desc: (description),
+							Schedule: (schedule),  
+							EstateAgent:  (estate)
+							//images:
+							});
+							//saves the record 
+							house.save(function(err, house) {
+								if (err) return console.error(err);
+								console.log(house); //prints the whole of the variable 
+							});
 						};
 
 						/*
@@ -102,7 +121,7 @@
 						// Compile a 'Property' model using the propertySchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
 						
-						var house = new Property({
+						/*var house = new Property({
 							address: ($('.detailsKeyPropertyDetails h1').text()).replace(/\s+/g,' '),// trim(($('.detailsKeyPropertyDetails h1').text())),
 							rooms: ($('.detailsKeyPropertyDetails h2').text());
 							desc: ($('.detailsDescription').text()).replace(/\s+/g,' ').replace(/'\'/,''),
@@ -114,7 +133,7 @@
 						house.save(function(err, house) {
 							if (err) return console.error(err);
 							console.log(house); //prints the whole of the variable 
-						});
+						});*/
 					});
 	  			});
 	  		});
