@@ -8,10 +8,13 @@
 
 	var db = mongoose.connection; //used for mongoose
 
+	var geonoder = require('geonoder'); //used for geocoding
+
 	db.on('error', console.error);
 	db.once('open', function() {
 		var propertySchema = new mongoose.Schema({
 		  	address: String,
+		  	rooms: String,
 			desc: String,
 			Schedule: String,
 			EstateAgent: String,
@@ -38,7 +41,7 @@
 		      		//console.log(url3)
 
 					request (url3, function(err,resp,body) {
-						console.log(url3)
+						//console.log(url3)
 						$ = cheerio.load(body);
 						/*var h = ('Address:' + $('.detailsKeyPropertyDetails h1').text())
 						h = h.replace(/\s+/g,' ');
@@ -48,11 +51,35 @@
 						console.log ('Schedule:' + $('#but1 a:contains()').attr('href'));
 						console.log('Estate Agent: ' + $('.request_details_agent_name strong:contains()').text());
 						console.log('Images:');
+						*/	
+
+						var address = $('.detailsKeyPropertyDetails h1').text().replace(/\s+/g,' ');
+						var rooms = $('.detailsKeyPropertyDetails h2').text();
+						var description = $('.detailsDescription').text().replace(/\s+/g,' ').replace(/'\'/,'');
+						var schedule = $('#but1 a:contains()').attr('href');
+						var estate = $('.request_details_agent_name strong:contains()').text();
+						
+							geonoder.toCoordinates(address, geonoder.providers.google, function(lat, long) {
+				   				//console.log('Lat: ' + lat + ' Long: ' + long) // 
+				   				var lattitude = lat;
+				   				var longtitude = long;
+				   				console.log ('Address: ' + address);
+				   				console.log('Lat: ' + lattitude);
+				   				console.log('Long: ' + longtitude);
+				   				console.log ('Rooms: ' + rooms);
+				   				console.log ('Description: ' + description);
+				   				console.log('Estate Agent: ' + estate)
+				   				console.log ('Schedule: ' + schedule);
+			   				});
+
+						/*
+						var imageLinks=new Array(); 
 						links = $('.ad-thumbs a');
 						$(links).each(function (i,link) {
-							console.log($(link).text() + '\n ' + $(link).attr('href'));
-						});
-						*/
+							imageLinks =($(link).text() + '\n ' + $(link).attr('href'));
+							console.log(imageLinks);
+						}); */
+						
 						/*
 						var images = new Array(); 
 						$(links).each(function (i,link) {
@@ -63,9 +90,10 @@
 
 						// Compile a 'Property' model using the propertySchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
-						
+						/*
 						var house = new Property({
 							address: ($('.detailsKeyPropertyDetails h1').text()).replace(/\s+/g,' '),// trim(($('.detailsKeyPropertyDetails h1').text())),
+							rooms: ($('.detailsKeyPropertyDetails h2').text());
 							desc: ($('.detailsDescription').text()).replace(/\s+/g,' ').replace(/'\'/,''),
 							Schedule: ($('#but1 a:contains()').attr('href')),  
 							EstateAgent:  ($('.request_details_agent_name strong:contains()').text())
@@ -75,7 +103,7 @@
 						house.save(function(err, house) {
 							if (err) return console.error(err);
 							console.log(house); //prints the whole of the variable 
-						});
+						});*/
 					});
 	  			});
 	  		});
