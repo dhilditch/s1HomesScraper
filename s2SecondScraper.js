@@ -22,8 +22,8 @@
 			Schedule: String,
 			EstateAgent: String,
 			Images: Array(),
-			//loc: {type: [Number], index: '2d'},
-			//type: String
+			loc: {type: [Number], index: '2d'},
+			saleID: String
 		});
 		var Property = mongoose.model('Property', housesSchema);
 
@@ -98,8 +98,8 @@
 								desc: (description),
 								Schedule: (schedule),  
 								EstateAgent:  (estate),
-								//loc: [(longtitude),(lattitude)],
-								//type: 'For Sale'
+								loc: [(longtitude),(lattitude)],
+								saleID: 'For Sale'
 							//images:
 							});
 
