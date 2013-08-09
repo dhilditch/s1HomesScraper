@@ -22,8 +22,8 @@
 			Schedule: String,
 			EstateAgent: String,
 			Images: Array(),
-			loc: {type: [Number], index: '2d'},
-			type: String
+			//loc: {type: [Number], index: '2d'},
+			//type: String
 		});
 		var Property = mongoose.model('Property', housesSchema);
 
@@ -98,12 +98,12 @@
 								desc: (description),
 								Schedule: (schedule),  
 								EstateAgent:  (estate),
-								loc: [(lattitude),(longtitude)],
-								type: 'For Sale'
+								//loc: [(longtitude),(lattitude)],
+								//type: 'For Sale'
 							//images:
 							});
 
-							console.log(house);
+							//console.log(house);
 							
 							//saves the record 
 							house.save(function(err, house) {
