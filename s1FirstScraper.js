@@ -38,7 +38,7 @@
 			var exchange = conn.exchange(''); // get the default exchange
 	  		var queue = conn.queue('mongo', {}, function() { // create a queue		
 
-				for (counter=1;counter<3;counter++) {
+				for (counter=1;counter<101;counter++) {
 					var url = 'http://www.s1homes.com/property-for-sale/forsale_search_results.cgi?type=House&newhomes=yes&sort=da&page=' +counter;
 					
 					request(url, function(err, resp, body) {

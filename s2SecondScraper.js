@@ -104,11 +104,12 @@
 							});
 
 							console.log(house);
+							
 							//saves the record 
-							//house.save(function(err, house) {
-								//if (err) return console.error(err);
-								//console.log(house); //prints the whole of the variable 
-							//});
+							house.save(function(err, house) {
+								if (err) return console.error(err);
+								console.log(house); //prints the whole of the variable 
+							});
 						};
 
 						/*
