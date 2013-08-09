@@ -12,17 +12,20 @@
 
 	db.on('error', console.error);
 	db.once('open', function() {
-		var propertySchema = new mongoose.Schema({
+		var housesSchema = new mongoose.Schema({
 		  	address: String,
 		  	latitude: Number,
 		  	longitude: Number,
 		  	rooms: String,
+		  	price: String,
 			desc: String,
 			Schedule: String,
 			EstateAgent: String,
-			Images: Array()
+			Images: Array(),
+			loc: {type: [Number], index: '2d'},
+			type: String
 		});
-		var Property = mongoose.model('Property', propertySchema);
+		var Property = mongoose.model('Property', housesSchema);
 
 		//connect to rabiit messaging
 		var url = process.env.CLOUDAMQP_URL || "amqp://gnmehswn:IlbEqsWPcK3tYO6S_lIJexWu4TxWMtce@bunny.cloudamqp.com/gnmehswn"; // default to localhost
@@ -56,7 +59,8 @@
 						*/	
 
 						var address = $('.detailsKeyPropertyDetails h1').text().replace(/\s+/g,' ');
-						var rooms = $('.detailsKeyPropertyDetails h2').text().replace(/\s+/g,' ');
+						var rooms = $('.detailPropertyType').text().replace(/\s+/g,' ');
+						var price = $('.detailPropertyPrice').text().replace(/\s+/g,' ');
 						var description = $('.detailsDescription').text().replace(/\s+/g,' ').replace(/'\'/,'');
 						var schedule = $('#but1 a:contains()').attr('href');
 						var estate = $('.request_details_agent_name strong:contains()').text();
@@ -86,20 +90,25 @@
 				   			*/
 
 				   			var house = new Property({
-							address: (address),
-							latitude:(lattitude),
-							longitude:(longtitude),
-							rooms: (rooms),
-							desc: (description),
-							Schedule: (schedule),  
-							EstateAgent:  (estate)
+								address: (address),
+								latitude:(lattitude),
+								longitude:(longtitude),
+								rooms: (rooms),
+								price: (price),
+								desc: (description),
+								Schedule: (schedule),  
+								EstateAgent:  (estate),
+								loc: [(lattitude),(longtitude)],
+								type: 'For Sale'
 							//images:
 							});
+
+							console.log(house);
 							//saves the record 
-							house.save(function(err, house) {
-								if (err) return console.error(err);
-								console.log(house); //prints the whole of the variable 
-							});
+							//house.save(function(err, house) {
+								//if (err) return console.error(err);
+								//console.log(house); //prints the whole of the variable 
+							//});
 						};
 
 						/*
@@ -118,7 +127,7 @@
 						})
 						*/
 
-						// Compile a 'Property' model using the propertySchema as the structure.
+						// Compile a 'Property' model using the housesSchema as the structure.
 						// Mongoose also creates a MongoDB collection called 'Property' for these documents.
 						
 						/*var house = new Property({
