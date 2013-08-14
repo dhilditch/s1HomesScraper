@@ -86,17 +86,17 @@
 								desc: (description),
 								Schedule: (schedule),  
 								EstateAgent:  (estate),
+								imageLinks: imageLinksTemp,
 								loc: [(longtitude),(lattitude)],
 								saleID: 'For Sale',
-								imageLinks: imageLinksTemp,
 								addedOn: addOn
 							});
 							
 							//saves the record 
-							house.save(function(err, house) {
-								if (err) return console.error(err);
+							//house.save(function(err, house) {
+							//	if (err) return console.error(err);
 								console.log(house); //prints the whole of the variable 
-							});
+							//});
 						};
 					});
 	  			});
