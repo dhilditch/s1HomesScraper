@@ -69,11 +69,14 @@
 							//console.log('imageLinks[' + i + ']' + imageLinks[i]);
 						}); 
 
-						geonoder.toCoordinates(address, geonoder.providers.google, function geo(lat, lng) {
-				   			var lattitude = lat;
-				   			var longtitude = lng;
-				   			save(lattitude, longtitude);
+						geonoder.toCoordinates(address, geonoder.providers.google, function(lat, long){
+								//console.log('Lat: ' + lat + ' Long: ' + long + 'address: ' + address)  
+				   				var lattitude = lat;
+				   				var longtitude = long;
+				   				save(lattitude, longtitude);
+				   				
 			   			});
+
 
 			   			function save(lattitude, longtitude) {
 
@@ -93,10 +96,10 @@
 							});
 							
 							//saves the record 
-							//house.save(function(err, house) {
-							//	if (err) return console.error(err);
+							house.save(function(err, house) {
+								if (err) return console.error(err);
 								console.log(house); //prints the whole of the variable 
-							//});
+							});
 						};
 					});
 	  			});
