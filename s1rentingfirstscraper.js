@@ -1,29 +1,68 @@
-	
-    var request = require('request'); // lets you connect to web pages
+
+
+	var request = require('request'); // lets you connect to web pages
 
 	var cheerio = require('cheerio'); // cheerio mimics the DOM and jQuery/CSS style selectors
 
+	var amqp = require('amqp');	//used for messaging
+
+	var initalUrl = 'http://www.s1rental.com/forrent_search_results.cgi?type=House&seolocation=Scotland&iuo=iuo&location=1754&page=1'
+	var m;	
+	//get number of properties for sale
+	request(initalUrl, function(err, resp, body) {
+
+		if (err)
+
+		throw err;
+
+		$ = cheerio.load(body);
+		var n = ($('.textPositive').text());				
+		parseInt(n);	
+
+		m = Math.ceil(n/10)	//get number of pages
+		//console.log(m)
+		run();
+	});
+
+	function run(){
+		var url = process.env.CLOUDAMQP_URL || "amqp://gnmehswn:IlbEqsWPcK3tYO6S_lIJexWu4TxWMtce@bunny.cloudamqp.com/gnmehswn"; //connect to host
+		var implOpts = {
+			reconnect: true,
+			reconnectBackoffStrategy: 'linear', // or 'exponential'
+			reconnectBackoffTime: 500, // ms
+		};
+		var conn = amqp.createConnection({ url: url }, implOpts); // create the connection
+		conn.on('ready', pub); // when connected, call "pub"
 
 
+		function pub() {
+			var exchange = conn.exchange(''); // get the default exchange
+	  		var queue = conn.queue('mongo', {}, function() { // create a queue		
 
-	for (counter=1;counter<3;counter++) {
-		var url = 'http://www.s1rental.com/forrent_search_results.cgi?type=House&seolocation=Scotland&iuo=iuo&location=1754&page=' +counter;
+				for (counter=1;counter<3;counter++) {
+					var url = 'http://www.s1rental.com/forrent_search_results.cgi?type=House&seolocation=Scotland&iuo=iuo&location=1754&page=' +counter;
+					
+					request(url, function(err, resp, body) {
 
-		request(url, {proxy: 'http://localhost:8888'}, function(err, resp, body) {
+						if (err)
 
-			if (err)
+							throw err;
 
-				throw err;
+						$ = cheerio.load(body);
 
-			$ = cheerio.load(body);
 
-			$('.imgPlaceholder a:contains()').each(function() {
+						$('.imgPlaceholder a:contains()').each(function() {
 
-				console.log ('http://www.s1rental.com/' + $(this).attr('href'));
+							var url2 = 'http://www.s1rental.com/' + $(this).attr('href');
+							//console.log (url2)
 
-				//output ('http://www.s1homes.com/' + $(this).attr('href'), to queue
+							exchange.publish(queue.name, {body: url2});	//publish message containing urls
+		   					console.log("published");
 
 				
 			});
-		}); 
-	}
+					}); 
+				}
+			});	
+		};
+	};
